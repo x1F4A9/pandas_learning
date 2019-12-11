@@ -1,3 +1,10 @@
+"""
+Sentdex python tutorial video 3
+groupby data analysis
+
+Does the SAME thing in problem set 2, but with less code
+"""
+
 import pandas as pd
 import os
 
@@ -67,3 +74,19 @@ act_min_wage.head()
 for problem in issue_df['State'].unique():
     if problem in min_wage_corr.columns:
         print("problem")
+
+#group the issues
+grouped_issues = issue_df.groupby("State")
+grouped_issues.get_group("Alabama").head()
+
+#do we get minwage data EVER?
+print(grouped_issues.get_group("Alabama")['Low.2018'].sum())
+
+#NOPE! Alabama never has minimum wage data
+
+for state, data in grouped_issues:
+    if data['Low.2018'].sum() != 0.0:
+        print('problem')
+
+
+
